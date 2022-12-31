@@ -1,4 +1,4 @@
-﻿namespace Cms.Core.Domains;
+﻿namespace Cms.Core.Models;
 public class User:BaseClass
 {
     public string Name { get; set; }

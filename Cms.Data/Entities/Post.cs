@@ -10,12 +10,12 @@ public class Post : BaseClass
 
     [MinLength(5)]
     [MaxLength(500)]
-    public string? Content { get; set; }
+    public string Content { get; set; }
 
     [ForeignKey("Category")]
     public int CategoryId { get; set; }
 
     public virtual Category Category{ get; set; }
-    public virtual ICollection<Comment> Comments { get; set; }
-    public virtual ICollection<PostTag> PostTags{ get; set; }
+    public virtual ICollection<Comment>? Comments { get; set; }
+    public virtual ICollection<PostTag>? PostTags{ get; set; }
 }

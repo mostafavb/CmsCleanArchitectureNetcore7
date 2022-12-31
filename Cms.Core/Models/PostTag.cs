@@ -1,6 +1,5 @@
-﻿using System.Security.Principal;
-
-namespace Cms.Core.Domains;
+﻿
+namespace Cms.Core.Models;
 internal class PostTag : BaseClass
 {
     public int PostId { get; set; }

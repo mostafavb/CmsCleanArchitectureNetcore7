@@ -1,15 +1,14 @@
-using Cms.Core.Interfaces.Repository;
+using Cms.Core;
 using Cms.Data;
-using Cms.Data.Data;
-using Cms.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.ConfigureDataServices(builder.Configuration);
+builder.Services.ConfigurationApplicationService();
 
-builder.Services.AddScoped<IPostRepository, PostRepository>();
+//builder.Services.AddScoped<IPostRepository, PostRepository>();
+//builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

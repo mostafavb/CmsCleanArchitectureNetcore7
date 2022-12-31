@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cms.Data.Migrations
 {
     [DbContext(typeof(CmsDbContext))]
-    [Migration("20221224000207_edituserphone")]
-    partial class edituserphone
+    [Migration("20221224050028_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Cms.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Cms.Data.Models.Category", b =>
+            modelBuilder.Entity("Cms.Data.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,8 +33,10 @@ namespace Cms.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -46,7 +48,7 @@ namespace Cms.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Cms.Data.Models.Comment", b =>
+            modelBuilder.Entity("Cms.Data.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,8 +61,10 @@ namespace Cms.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -72,7 +76,7 @@ namespace Cms.Data.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Cms.Data.Models.Post", b =>
+            modelBuilder.Entity("Cms.Data.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,12 +91,15 @@ namespace Cms.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("getdate()");
 
-                    b.Property<int>("Title")
+                    b.Property<string>("Title")
+                        .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -101,7 +108,7 @@ namespace Cms.Data.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("Cms.Data.Models.PostTag", b =>
+            modelBuilder.Entity("Cms.Data.Entities.PostTag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,8 +116,10 @@ namespace Cms.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -127,7 +136,7 @@ namespace Cms.Data.Migrations
                     b.ToTable("Posts_Tags");
                 });
 
-            modelBuilder.Entity("Cms.Data.Models.Tag", b =>
+            modelBuilder.Entity("Cms.Data.Entities.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,8 +144,10 @@ namespace Cms.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -148,7 +159,7 @@ namespace Cms.Data.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("Cms.Data.Models.User", b =>
+            modelBuilder.Entity("Cms.Data.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -156,8 +167,10 @@ namespace Cms.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -175,26 +188,26 @@ namespace Cms.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Cms.Data.Models.Comment", b =>
+            modelBuilder.Entity("Cms.Data.Entities.Comment", b =>
                 {
-                    b.HasOne("Cms.Data.Models.Post", null)
+                    b.HasOne("Cms.Data.Entities.Post", null)
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Cms.Data.Models.Post", b =>
+            modelBuilder.Entity("Cms.Data.Entities.Post", b =>
                 {
-                    b.HasOne("Cms.Data.Models.Category", "Category")
+                    b.HasOne("Cms.Data.Entities.Category", "Category")
                         .WithMany("Posts")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -203,15 +216,15 @@ namespace Cms.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Cms.Data.Models.PostTag", b =>
+            modelBuilder.Entity("Cms.Data.Entities.PostTag", b =>
                 {
-                    b.HasOne("Cms.Data.Models.Post", "Post")
+                    b.HasOne("Cms.Data.Entities.Post", "Post")
                         .WithMany("PostTags")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Cms.Data.Models.Tag", "Tag")
+                    b.HasOne("Cms.Data.Entities.Tag", "Tag")
                         .WithMany("PostTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -222,19 +235,19 @@ namespace Cms.Data.Migrations
                     b.Navigation("Tag");
                 });
 
-            modelBuilder.Entity("Cms.Data.Models.Category", b =>
+            modelBuilder.Entity("Cms.Data.Entities.Category", b =>
                 {
                     b.Navigation("Posts");
                 });
 
-            modelBuilder.Entity("Cms.Data.Models.Post", b =>
+            modelBuilder.Entity("Cms.Data.Entities.Post", b =>
                 {
                     b.Navigation("Comments");
 
                     b.Navigation("PostTags");
                 });
 
-            modelBuilder.Entity("Cms.Data.Models.Tag", b =>
+            modelBuilder.Entity("Cms.Data.Entities.Tag", b =>
                 {
                     b.Navigation("PostTags");
                 });

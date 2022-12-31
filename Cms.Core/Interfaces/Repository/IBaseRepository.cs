@@ -1,9 +1,11 @@
-﻿namespace Cms.Core.Interfaces.Repository;
-public interface IBaseRepository<T> where T : class
+﻿using Cms.Core.Models;
+
+namespace Cms.Core.Interfaces.Repository;
+public interface IBaseRepository<TModel> 
 {
-    Task<T> Get(int id);
-    Task<List<T>> GetAll();
-    Task<T> Add(T entity);
-    Task Edit(T entity);
+    Task<TModel> Get(int id);
+    Task<List<TModel>> GetAll();
+    Task<TModel> Add<TDto>(TDto modelDto);
+    Task Edit(TModel modelDto);
     Task Delete(int id);
 }

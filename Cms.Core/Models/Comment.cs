@@ -1,4 +1,4 @@
-﻿namespace Cms.Core.Domains;
+﻿namespace Cms.Core.Models;
 public class Comment:BaseClass
 {
     public string Content { get; set; }

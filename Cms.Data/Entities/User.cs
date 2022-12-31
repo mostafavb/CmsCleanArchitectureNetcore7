@@ -21,5 +21,5 @@ public class User : BaseClass
     public string Password { get; set; }
 
     [StringLength(14)]
-    public string? Phone { get; set; }
+    public string Phone { get; set; }
 }

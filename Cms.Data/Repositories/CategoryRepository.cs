@@ -1,11 +1,11 @@
-﻿using Cms.Core.Domains;
+﻿using Cms.Data.Data;
+using AutoMapper;
 using Cms.Core.Interfaces.Repository;
-using Cms.Data.Data;
 
 namespace Cms.Data.Repositories;
-public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
+public class CategoryRepository : BaseRepository<Cms.Data.Entities.Category,Cms.Core.Models.Category>, ICategoryRepository
 {
-    public CategoryRepository(CmsDbContext cmsDb) : base(cmsDb)
+    public CategoryRepository(CmsDbContext cmsDb,IMapper mapper) : base(cmsDb,mapper)
     {
     }
 }

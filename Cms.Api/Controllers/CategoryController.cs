@@ -1,6 +1,5 @@
-﻿using Cms.Core.Domains;
-using Cms.Core.Interfaces.Repository;
-using Microsoft.AspNetCore.Http;
+﻿using Cms.Core.Interfaces.Repository;
+using Cms.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cms.Api.Controllers;
@@ -19,7 +18,30 @@ public class CategoryController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Category>> Get(int id)
     {
-        var _category = categoryRepository.Get(id);
-        return Ok(_category);
-    }   
+        try
+        {
+            var _category = await categoryRepository.Get(id);
+            return Ok(_category);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+        
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<int>> Post(Category category)
+    {
+        try
+        {
+            var cat = await categoryRepository.Add<Category>(category);
+            return Ok(cat);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+        
+    }
 }
