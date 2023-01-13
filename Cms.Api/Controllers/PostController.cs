@@ -14,7 +14,7 @@ namespace Cms.Api.Controllers;
 public class PostController : ControllerBase
 {
     private readonly IMediator mediator;
-    private readonly IEditPostUseCase editPostUseCase;
+    //private readonly IEditPostUseCase editPostUseCase;
     private readonly PostApiPresenter<PostEditResponse> postApiPresenter;
 
     //private readonly IPostRepository<Cms.Data.Entities.Post, Cms.Core.Models.Post> postRepository;
@@ -24,10 +24,13 @@ public class PostController : ControllerBase
     //    this.postRepository = postRepository;
     //}
 
-    public PostController(IMediator mediator,IEditPostUseCase editPostUseCase,PostApiPresenter<PostEditResponse> postApiPresenter)
+    public PostController(IMediator mediator
+        //,IEditPostUseCase editPostUseCase,
+        //PostApiPresenter<PostEditResponse> postApiPresenter
+        )
     {
         this.mediator = mediator;
-        this.editPostUseCase = editPostUseCase;
+        //this.editPostUseCase = editPostUseCase;
         this.postApiPresenter = postApiPresenter;
     }
 
@@ -46,7 +49,7 @@ public class PostController : ControllerBase
 
 
     [HttpPut]
-    public async Task<ActionResult> Post(PostEditDto post)
+    public async Task<ActionResult> Put(PostEditDto post)
     {
         var updatePost = new PostEditRequest()
         {
@@ -55,7 +58,7 @@ public class PostController : ControllerBase
             Content = post.Content,
             Title = post.Title
         };
-        await editPostUseCase.HandleAsync(updatePost, postApiPresenter);
+        //await editPostUseCase.HandleAsync(updatePost, postApiPresenter);
         return postApiPresenter.ContentResult;
     }
 }
